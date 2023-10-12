@@ -4,7 +4,7 @@ RUN apt update
 
 RUN apt install -y curl git bash unzip
 
-RUN curl https://rtx.pub/rtx-latest-linux-arm >/usr/local/bin/rtx && chmod +x /usr/local/bin/rtx
+RUN curl https://rtx.pub/rtx-latest-linux-arm64 >/usr/local/bin/rtx && chmod +x /usr/local/bin/rtx
 
 ENV RTX_DEBUG=1
 RUN rtx install -y go
