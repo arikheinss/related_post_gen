@@ -7,10 +7,12 @@ RUN apt install -y curl git bash unzip
 RUN curl https://rtx.pub/rtx-latest-linux-arm >/usr/local/bin/rtx && chmod +x /usr/local/bin/rtx
 
 ENV RTX_DEBUG=1
-# RUN rtx install -y go
-RUN rtx use -g -y hyperfine
+RUN rtx install -y go
+RUN rtx install -y hyperfine
 
-RUN rtx use -g -y go
+RUN rtx use -g hyperfine
+
+RUN rtx use -g go
 
 RUN rtx which hyperfine
 
