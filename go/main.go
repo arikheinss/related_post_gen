@@ -63,24 +63,15 @@ func main() {
 		}
 		taggedPostCount[i] = 0 // Don't count self
 		top5 := [topN]PostWithSharedTags{}
-		minTags := isize(0) // Updated initialization
 
 		for j, count := range taggedPostCount {
-			if count > minTags {
-				// Find the position to insert
-				pos := 4
-				for pos >= 0 && top5[pos].SharedTags < count {
-					pos--
+			if count > top5[0].SharedTags {
+				top5[0] = PostWithSharedTags{Post: isize(j), SharedTags: count}
+				for k := 0; k < topN-1; k++ {
+					if top5[k].SharedTags > top5[k+1].SharedTags {
+						top5[k], top5[k+1] = top5[k+1], top5[k]
+					}
 				}
-				pos++
-
-				// Shift and insert
-				if pos < 4 {
-					copy(top5[pos+1:], top5[pos:4])
-				}
-
-				top5[pos] = PostWithSharedTags{Post: isize(j), SharedTags: count}
-				minTags = top5[4].SharedTags
 			}
 		}
 		// Convert indexes back to Post pointers
